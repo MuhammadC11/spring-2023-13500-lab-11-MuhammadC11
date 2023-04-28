@@ -22,20 +22,24 @@ Network::Network() // Constructor, make an empty network (numUsers = 0)
 
 bool Network::addUser(std::string usrn, std::string dspn)
 {
-    if (numUsers == MAX_USERS) // If the number of users is equal to the maximum number of users
+    bool added;
+    bool alphanumerical = true;
+    for (int i = 0; i < usrn.length(); i++)
     {
-        return false; // Return false
-    }
-    for (int i = 0; i < numUsers; i++) // Loop through all profiles
-    {
-        if (profiles[i].getUsername() == usrn) // If the username of the current profile matches the username we are looking for
+        if (!isalnum(usrn[i]))
         {
-            return false; // Return false
+            alphanumerical = false;
+            break;
         }
     }
-    profiles[numUsers] = Profile(usrn, dspn); // Create a new profile with the username and display name
-    numUsers++;                               // Increment the number of users
-    return true;                              // Return true
+
+    if (numUsers != MAX_USERS and findID(usrn) == -1 and alphanumerical == true)
+    {
+        profiles[numUsers] = Profile(usrn, dspn);
+        numUsers++;
+        added = true;
+    }
+    return added;
 }
 
 bool Network::follow(std::string usrn1, std::string usrn2) // Record that usr1 follows usr2

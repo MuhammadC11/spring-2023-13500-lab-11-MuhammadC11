@@ -15,4 +15,4 @@ tests.o: tests.cpp doctest.h profile.h network.h
 	g++ -c -std=c++11 tests.cpp
 
 clean:
-	rm -f main.o profile.o network.o tests.o
+	rm -f main.o profile.o network.o tests.o main tests
